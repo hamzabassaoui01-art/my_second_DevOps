@@ -1,4 +1,3 @@
-
 const button = document.getElementById("messageBtn");
 const message = document.getElementById("message");
 
