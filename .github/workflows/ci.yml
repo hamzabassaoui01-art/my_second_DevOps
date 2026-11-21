@@ -23,10 +23,13 @@ jobs:
       - name: Check HTML
         run: npx --yes htmlhint index.html
 
+      - name: Install CSS Linter
+        run: npm install --no-save stylelint@16 stylelint-config-standard@36
+
       - name: Check CSS
         run: |
-          npm install --no-save stylelint@16
-          npx stylelint style.css --config '{"rules":{"color-no-invalid-hex":true,"block-no-empty":true,"declaration-block-no-duplicate-properties":true}}'
+          echo '{"extends":["stylelint-config-standard"]}' > .stylelintrc.json
+          npx stylelint style.css --config .stylelintrc.json
 
       - name: Check JavaScript Syntax
         run: node --check script.js
