@@ -1,5 +1,5 @@
 
-name: HTML JS Quality Check
+name: HTML CSS JS Quality Check
 
 on:
   push:
@@ -23,8 +23,13 @@ jobs:
       - name: Check HTML
         run: npx --yes htmlhint index.html
 
+      - name: Check CSS
+        run: |
+          npm install --no-save stylelint@16
+          npx stylelint style.css --config '{"rules":{"color-no-invalid-hex":true,"block-no-empty":true,"declaration-block-no-duplicate-properties":true}}'
+
       - name: Check JavaScript Syntax
         run: node --check script.js
 
       - name: Check Formatting
-        run: npx --yes prettier --check index.html script.js
+        run: npx --yes prettier --check index.html style.css script.js
