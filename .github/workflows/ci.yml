@@ -1,0 +1,36 @@
+
+name: HTML CSS JS Quality Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install CSS Linter
+        run: npm install --no-save stylelint@16 stylelint-config-standard@36
+
+      - name: Check HTML
+        run: npx --yes htmlhint index.html
+
+      - name: Check CSS
+        run: npx stylelint style.css
+
+      - name: Check JavaScript Syntax
+        run: node --check script.js
+
+      - name: Check Formatting
+        run: npx --yes prettier --check index.html style.css script.js
